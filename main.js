@@ -60,22 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-async function fetchFavicon(url) {
-    try {
-        const response = await fetch(`${url}/favicon.ico`, { mode: 'no-cors' });
-        if (response.ok || response.type === 'opaque') {
-            return `${url}/favicon.ico`;
-        } else {
-            throw new Error('Favicon not found');
-        }
-    } catch (error) {
-        console.error('Error fetching favicon:', error);
-
-        // Continue trying to load the default favicon from the local image
-        return './default-favicon-url.png';
-    }
-}
-
     function displayApps(apps) {
         appContainer.innerHTML = ''; // Clear previous content
 
@@ -87,24 +71,10 @@ async function fetchFavicon(url) {
             const appDiv = document.createElement('div');
             appDiv.classList.add('app');
 
-            const favicon = document.createElement('img');
-            favicon.alt = 'Favicon';
-
-            // Fetch favicon
-            fetchFavicon(app.link)
-                .then(faviconUrl => {
-                    favicon.src = faviconUrl;
-                })
-                .catch(error => {
-                    console.error('Error fetching favicon:', error);
-                    // Provide a default favicon URL or handle the error as needed
-                    favicon.src = 'default-favicon-url.png';
-                });
-
+            // Display text content instead of favicon
             const title = document.createElement('p');
             title.textContent = app.title || app.link;
 
-            appDiv.appendChild(favicon);
             appDiv.appendChild(title);
 
             appLink.appendChild(appDiv);
