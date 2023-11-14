@@ -28,7 +28,7 @@ body {
     align-items: center;
     background: linear-gradient(to bottom, #000, #001f3f); /* Black to dark blue gradient */
 }
-}
+
 
 .app {
     border: 1px solid #ccc;
