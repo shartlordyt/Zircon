@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Error fetching favicon:', error);
             // Provide a default favicon URL or handle the error as needed
-            return 'default-favicon-url';
+            return 'default-favicon-url.png';
         }
     }
 
