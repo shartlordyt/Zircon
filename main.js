@@ -33,6 +33,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Function to fetch the favicon
+    async function fetchFavicon(url) {
+        try {
+            const response = await fetch(`${url}/favicon.ico`, { mode: 'no-cors' });
+            if (response.ok || response.type === 'opaque') {
+                return `${url}/favicon.ico`;
+            } else {
+                throw new Error('Favicon not found');
+            }
+        } catch (error) {
+            console.error('Error fetching favicon:', error);
+            // Provide a default favicon URL or handle the error as needed
+            return 'default-favicon-url';
+        }
+    }
+
     function displayApps(apps) {
         appContainer.innerHTML = ''; // Clear previous content
 
@@ -50,58 +66,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(error => {
                     console.error('Error fetching favicon:', error);
+                    // Provide a default favicon URL or handle the error as needed
+                    favicon.src = 'default-favicon-url';
                 });
 
-            const title = document.createElement('p');
-
-            // Fetch title
-            fetchTitle(app.link)
-                .then(siteTitle => {
-                    title.textContent = siteTitle;
-                })
-                .catch(error => {
-                    console.error('Error fetching title:', error);
-                });
+            const title = document.createElement('a');
+            title.href = app.link;
+            title.target = '_blank'; // Open link in a new tab
+            title.textContent = app.title || app.link;
 
             appDiv.appendChild(favicon);
             appDiv.appendChild(title);
 
             appContainer.appendChild(appDiv);
         });
-    }
-
-// Function to fetch the favicon
-async function fetchFavicon(url) {
-    try {
-        const response = await fetch(`${url}/favicon.ico`, { mode: 'no-cors' });
-        if (response.ok || response.type === 'opaque') {
-            return `${url}/favicon.ico`;
-        } else {
-            throw new Error('Favicon not found');
-        }
-    } catch (error) {
-        console.error('Error fetching favicon:', error);
-        // Provide a default favicon URL when the requested favicon is not found
-        return 'default-favicon-url';
-    }
-}
-
-
-    // Function to fetch the title
-    async function fetchTitle(url) {
-        try {
-            const response = await fetch(url);
-            const text = await response.text();
-            const match = text.match(/<title>(.*?)<\/title>/i);
-            if (match && match[1]) {
-                return match[1];
-            } else {
-                throw new Error('Title not found');
-            }
-        } catch (error) {
-            console.error('Error fetching title:', error);
-            // Provide a default title or handle the error as needed
-            return 'Default Title';
-        }
     }
 });
