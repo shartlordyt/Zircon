@@ -53,6 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
         appContainer.innerHTML = ''; // Clear previous content
 
         apps.forEach(app => {
+            const appLink = document.createElement('a');
+            appLink.href = app.link;
+            appLink.target = '_blank'; // Open link in a new tab
+
             const appDiv = document.createElement('div');
             appDiv.classList.add('app');
 
@@ -70,15 +74,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     favicon.src = 'default-favicon-url';
                 });
 
-            const title = document.createElement('a');
-            title.href = app.link;
-            title.target = '_blank'; // Open link in a new tab
+            const title = document.createElement('p');
             title.textContent = app.title || app.link;
 
             appDiv.appendChild(favicon);
             appDiv.appendChild(title);
 
-            appContainer.appendChild(appDiv);
+            appLink.appendChild(appDiv);
+            appContainer.appendChild(appLink);
         });
     }
 });
