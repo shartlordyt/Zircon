@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const appContainer = document.getElementById('app-container');
-    
+
     // Ask the user to upload a JSON file
     const input = document.createElement('input');
     input.type = 'file';
@@ -41,16 +41,66 @@ document.addEventListener('DOMContentLoaded', function () {
             appDiv.classList.add('app');
 
             const favicon = document.createElement('img');
-            favicon.src = app.favicon;
             favicon.alt = 'Favicon';
 
+            // Fetch favicon
+            fetchFavicon(app.link)
+                .then(faviconUrl => {
+                    favicon.src = faviconUrl;
+                })
+                .catch(error => {
+                    console.error('Error fetching favicon:', error);
+                });
+
             const title = document.createElement('p');
-            title.textContent = app.title;
+
+            // Fetch title
+            fetchTitle(app.link)
+                .then(siteTitle => {
+                    title.textContent = siteTitle;
+                })
+                .catch(error => {
+                    console.error('Error fetching title:', error);
+                });
 
             appDiv.appendChild(favicon);
             appDiv.appendChild(title);
 
             appContainer.appendChild(appDiv);
         });
+    }
+
+    // Function to fetch the favicon
+    async function fetchFavicon(url) {
+        try {
+            const response = await fetch(`${url}/favicon.ico`);
+            if (response.ok) {
+                return `${url}/favicon.ico`;
+            } else {
+                throw new Error('Favicon not found');
+            }
+        } catch (error) {
+            console.error('Error fetching favicon:', error);
+            // Provide a default favicon URL or handle the error as needed
+            return 'default-favicon-url';
+        }
+    }
+
+    // Function to fetch the title
+    async function fetchTitle(url) {
+        try {
+            const response = await fetch(url);
+            const text = await response.text();
+            const match = text.match(/<title>(.*?)<\/title>/i);
+            if (match && match[1]) {
+                return match[1];
+            } else {
+                throw new Error('Title not found');
+            }
+        } catch (error) {
+            console.error('Error fetching title:', error);
+            // Provide a default title or handle the error as needed
+            return 'Default Title';
+        }
     }
 });
