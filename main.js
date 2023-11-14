@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const appContainer = document.getElementById('app-container');
+    const updateButton = document.createElement('button');
+    const input = document.createElement('input');
 
     // Ask the user to upload a JSON file
     input.type = 'file';
@@ -16,10 +20,19 @@
         try {
             const jsonData = JSON.parse(storedData);
             displayApps(jsonData);
+
+            // Show the update button after the list is loaded
+            updateButton.textContent = 'Update';
+            appContainer.appendChild(updateButton);
         } catch (error) {
             console.error('Error parsing stored JSON data:', error);
         }
     }
+
+    // Button for updating JSON data
+    updateButton.addEventListener('click', function () {
+        input.click();
+    });
 
     function handleFile(event) {
         const file = event.target.files[0];
@@ -34,6 +47,10 @@
 
                     // Save data to local storage
                     localStorage.setItem('appData', JSON.stringify(jsonData));
+
+                    // Show the update button after the list is loaded
+                    updateButton.textContent = 'Update';
+                    appContainer.appendChild(updateButton);
                 } catch (error) {
                     console.error('Error parsing JSON:', error);
                 }
@@ -95,12 +112,3 @@
         });
     }
 });
-document.addEventListener('DOMContentLoaded', function () {
-    const appContainer = document.getElementById('app-container');
-    const updateButton = document.getElementById('update-button');
-    const input = document.createElement('input');
-    
-    // Button for updating JSON data
-    updateButton.addEventListener('click', function () {
-        input.click();
-    });
