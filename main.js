@@ -66,6 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     sidebar.appendChild(clearAllButton);
 
+        const fileSelectButton = document.createElement('label');
+    fileSelectButton.textContent = 'Upload a JSON file: ';
+    fileSelectButton.classList.add('button'); // Apply the button class
+    fileSelectButton.appendChild(input)
+
     // Button for exporting JSON
     const exportButton = document.createElement('button');
     exportButton.textContent = 'Export JSON';
