@@ -28,7 +28,7 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(to bottom, #000, #001f3f); /* Black to dark blue gradient */
-    text-color: white;
+
 }
 
 
@@ -54,6 +54,7 @@ p {
     -webkit-line-clamp: 3; /* Adjust the number of lines to display */
     -webkit-box-orient: vertical;
     white-space: normal;
+    color: white;
 }
 
 button {
