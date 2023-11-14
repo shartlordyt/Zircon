@@ -1,22 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
     const appContainer = document.getElementById('app-container');
-    const updateButton = document.createElement('button');
-    const input = document.createElement('input');
-    const pasteInput = document.createElement('input');
-    const addButton = document.createElement('button');
-    const clearAllButton = document.createElement('button');
-    const exportButton = document.createElement('button');
+    const sidebar = document.querySelector('.sidebar');
 
     // Ask the user to upload a JSON file
+    const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
+
     input.addEventListener('change', handleFile);
 
     const fileInputLabel = document.createElement('label');
     fileInputLabel.textContent = 'Upload a JSON file: ';
     fileInputLabel.appendChild(input);
 
-    appContainer.appendChild(fileInputLabel);
+    sidebar.appendChild(fileInputLabel);
 
     // Load data from local storage
     const storedData = localStorage.getItem('appData');
@@ -30,16 +27,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Button for updating JSON data
+    const updateButton = document.createElement('button');
     updateButton.textContent = 'Update';
     updateButton.addEventListener('click', function () {
         input.click();
     });
+    sidebar.appendChild(updateButton);
 
     // Input for pasting links
+    const pasteInput = document.createElement('input');
     pasteInput.type = 'text';
     pasteInput.placeholder = 'Paste a link here...';
+    sidebar.appendChild(pasteInput);
 
     // Button for adding links
+    const addButton = document.createElement('button');
     addButton.textContent = 'Add Link';
     addButton.addEventListener('click', function () {
         const link = pasteInput.value.trim();
@@ -48,8 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
             pasteInput.value = '';
         }
     });
+    sidebar.appendChild(addButton);
 
     // Button for clearing all data with double confirmation
+    const clearAllButton = document.createElement('button');
     clearAllButton.textContent = 'Clear All Data';
     clearAllButton.addEventListener('click', function () {
         const confirmation1 = confirm('Are you sure you want to clear all data?');
@@ -60,17 +64,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+    sidebar.appendChild(clearAllButton);
 
     // Button for exporting JSON
+    const exportButton = document.createElement('button');
     exportButton.textContent = 'Export JSON';
     exportButton.addEventListener('click', exportToJson);
-
-    // Append buttons and input to the page
-    appContainer.appendChild(updateButton);
-    appContainer.appendChild(pasteInput);
-    appContainer.appendChild(addButton);
-    appContainer.appendChild(clearAllButton);
-    appContainer.appendChild(exportButton);
+    sidebar.appendChild(exportButton);
 
     function handleFile(event) {
         const file = event.target.files[0];
@@ -104,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         displayApps(jsonData);
     }
-
 
     async function displayApps(apps) {
         appContainer.innerHTML = ''; // Clear previous content
@@ -141,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
             appContainer.appendChild(appLink);
         }
     }
+
     function clearAllData() {
         // Clear data from local storage
         localStorage.removeItem('appData');
@@ -167,3 +167,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
