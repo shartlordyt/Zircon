@@ -140,10 +140,13 @@ const addButton = createButton('Add Link', function () {
 
             const appDiv = document.createElement('div');
             appDiv.classList.add('app');
-            
-   const favicon = document.createElement('img');
-    favicon.classList.add('favicon');
-    favicon.src = await fetchFavicon(app.link).catch(() => 'default-favicon-url.png'); // Set default if fetching fails
+try {
+    favicon.src = await fetchFavicon(app.link);
+} catch (error) {
+    console.error('Error fetching favicon:', error);
+    favicon.src = 'default-favicon-url.png'; // Set default if fetching fails
+}
+
 
             const title = document.createElement('p');
             title.textContent = await fetchTitle(app.link);
