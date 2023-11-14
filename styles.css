@@ -1,6 +1,26 @@
-#app-container {
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    position: fixed;
+    height: 100%;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
     display: flex;
     flex-wrap: wrap;
+}
+
+#app-container {
+    flex-grow: 1;
 }
 
 .app {
@@ -17,4 +37,10 @@ p {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+/* Style your buttons as needed */
+button {
+    display: block;
+    margin-bottom: 10px;
 }
