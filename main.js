@@ -143,7 +143,7 @@ const addButton = createButton('Add Link', function () {
 
     async function fetchFavicon(url) {
     try {
-        const response = await fetch(`https://www.google.com/s2/favicons?sz=64&domain_url=${url}`);
+        const response = await fetch(`${url}/favicon.ico`);
         if (response.ok) {
             const blob = await response.blob();
             return URL.createObjectURL(blob);
