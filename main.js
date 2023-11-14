@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const appContainer = document.getElementById('app-container');
+    const updateButton = document.getElementById('update-button');
 
     // Ask the user to upload a JSON file
     const input = document.createElement('input');
@@ -13,6 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
     fileInputLabel.appendChild(input);
 
     appContainer.appendChild(fileInputLabel);
+    
+    // Button for updating JSON data
+    updateButton.addEventListener('click', function () {
+        input.click();
+    });
 
     // Load data from local storage
     const storedData = localStorage.getItem('appData');
