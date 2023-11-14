@@ -1,12 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
     const appContainer = document.getElementById('app-container');
     const updateButton = document.getElementById('update-button');
+    const input = document.createElement('input');
+    
+    // Button for updating JSON data
+    updateButton.addEventListener('click', function () {
+        input.click();
+    });
 
     // Ask the user to upload a JSON file
-    const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
-
     input.addEventListener('change', handleFile);
 
     const fileInputLabel = document.createElement('label');
@@ -14,11 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     fileInputLabel.appendChild(input);
 
     appContainer.appendChild(fileInputLabel);
-    
-    // Button for updating JSON data
-    updateButton.addEventListener('click', function () {
-        input.click();
-    });
 
     // Load data from local storage
     const storedData = localStorage.getItem('appData');
