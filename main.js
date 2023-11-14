@@ -60,21 +60,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to fetch the favicon
-    async function fetchFavicon(url) {
-        try {
-            const response = await fetch(`${url}/favicon.ico`, { mode: 'no-cors' });
-            if (response.ok || response.type === 'opaque') {
-                return `${url}/favicon.ico`;
-            } else {
-                throw new Error('Favicon not found');
-            }
-        } catch (error) {
-            console.error('Error fetching favicon:', error);
-            // Provide a default favicon URL or handle the error as needed
-            return 'default-favicon-url.png';
+async function fetchFavicon(url) {
+    try {
+        const response = await fetch(`${url}/favicon.ico`, { mode: 'no-cors' });
+        if (response.ok || response.type === 'opaque') {
+            return `${url}/favicon.ico`;
+        } else {
+            throw new Error('Favicon not found');
         }
+    } catch (error) {
+        console.error('Error fetching favicon:', error);
+
+        // Continue trying to load the default favicon from the local image
+        return './default-favicon-url.png';
     }
+}
 
     function displayApps(apps) {
         appContainer.innerHTML = ''; // Clear previous content
