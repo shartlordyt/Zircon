@@ -1,12 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const appContainer = document.getElementById('app-container');
-    const updateButton = document.getElementById('update-button');
-    const input = document.createElement('input');
-    
-    // Button for updating JSON data
-    updateButton.addEventListener('click', function () {
-        input.click();
-    });
 
     // Ask the user to upload a JSON file
     input.type = 'file';
@@ -104,3 +95,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const appContainer = document.getElementById('app-container');
+    const updateButton = document.getElementById('update-button');
+    const input = document.createElement('input');
+    
+    // Button for updating JSON data
+    updateButton.addEventListener('click', function () {
+        input.click();
+    });
