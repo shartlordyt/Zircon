@@ -70,21 +70,22 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Function to fetch the favicon
-    async function fetchFavicon(url) {
-        try {
-            const response = await fetch(`${url}/favicon.ico`);
-            if (response.ok) {
-                return `${url}/favicon.ico`;
-            } else {
-                throw new Error('Favicon not found');
-            }
-        } catch (error) {
-            console.error('Error fetching favicon:', error);
-            // Provide a default favicon URL or handle the error as needed
-            return 'default-favicon-url';
+// Function to fetch the favicon
+async function fetchFavicon(url) {
+    try {
+        const response = await fetch(`${url}/favicon.ico`, { mode: 'no-cors' });
+        if (response.ok || response.type === 'opaque') {
+            return `${url}/favicon.ico`;
+        } else {
+            throw new Error('Favicon not found');
         }
+    } catch (error) {
+        console.error('Error fetching favicon:', error);
+        // Provide a default favicon URL when the requested favicon is not found
+        return 'default-favicon-url';
     }
+}
+
 
     // Function to fetch the title
     async function fetchTitle(url) {
