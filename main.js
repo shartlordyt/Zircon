@@ -114,20 +114,19 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    async function fetchFavicon(url) {
-      try {
+async function fetchFavicon(url) {
+    try {
         const response = await fetch(`${url}/favicon.ico`);
-        if (response.ok) {
-          const blob = await response.blob();
-          return URL.createObjectURL(blob);
-        } else {
-          throw new Error("Favicon not found");
+        if (!response.ok) {
+            throw new Error('Favicon not found');
         }
-      } catch (error) {
-        console.error("Error fetching favicon:", error);
-        return "default-favicon-url.png";
-      }
+        const blob = await response.blob();
+        return URL.createObjectURL(blob);
+    } catch (error) {
+        console.error('Error fetching favicon:', error);
+        return 'default-favicon-url.png';
     }
+}
 
     // Display apps with dynamically fetched titles
     for (const app of apps) {
@@ -141,15 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const favicon = document.createElement("img");
       favicon.classList.add("favicon");
       favicon.alt = "Favicon"; // Add alt attribute for accessibility
-try {
-    favicon.src = await fetchFavicon(app.link);
-} catch (error) {
-    console.error('Error fetching favicon:', error);
-}
-
-      if (!favicon.src || favicon.src === 'undefined') {
-    favicon.src = 'default-favicon-url.png';
-}
 
       const title = document.createElement("p");
       title.textContent = await fetchTitle(app.link);
