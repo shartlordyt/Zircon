@@ -24,11 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // Show the update button after the list is loaded
             updateButton.textContent = 'Update';
             appContainer.appendChild(updateButton);
-
-            // Prompt user to upload a new JSON file on page load
-            if (confirm('Do you want to upload a new JSON file?')) {
-                input.click();
-            }
         } catch (error) {
             console.error('Error parsing stored JSON data:', error);
         }
@@ -117,4 +112,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-
