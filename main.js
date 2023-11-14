@@ -117,6 +117,21 @@ const addButton = createButton('Add Link', function () {
             }
         }
 
+        async function fetchFavicon(url) {
+  try {
+    const response = await fetch(`${url}/favicon.ico`);
+    if (response.ok) {
+      const blob = await response.blob();
+      return URL.createObjectURL(blob);
+    } else {
+      throw new Error('Favicon not found');
+    }
+  } catch (error) {
+    console.error('Error fetching favicon:', error);
+    return 'default-favicon-url.png';
+  }
+}
+
         // Display apps with dynamically fetched titles
         for (const app of apps) {
             const appLink = document.createElement('a');
@@ -126,20 +141,9 @@ const addButton = createButton('Add Link', function () {
             const appDiv = document.createElement('div');
             appDiv.classList.add('app');
             
-    // Display favicon
-async function fetchFavicon(url) {
-  try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const html = await response.text();
-      const match = html.match(/<link.*?icon.*?href=["'](.*?)["']/i);
-      if (match && match[1]) {
-        const faviconUrl = new URL(match[1], url).href;
-        const faviconResponse = await fetch(faviconUrl);
-        if (faviconResponse.ok) {
-          const blob = await faviconResponse.blob();
-          return URL.createObjectURL(blob);
-
+   const favicon = document.createElement('img');
+    favicon.classList.add('favicon');
+    favicon.src = await fetchFavicon(app.link).catch(() => 'default-favicon-url.png'); // Set default if fetching fails
 
             const title = document.createElement('p');
             title.textContent = await fetchTitle(app.link);
@@ -150,19 +154,6 @@ async function fetchFavicon(url) {
             appContainer.appendChild(appLink);
 
 
-    async function fetchFavicon(url) {
-    try {
-        const response = await fetch(`${url}/favicon.ico`);
-        if (response.ok) {
-            const blob = await response.blob();
-            return URL.createObjectURL(blob);
-        } else {
-            throw new Error('Failed to fetch favicon');
-        }
-    } catch (error) {
-        console.error('Error fetching favicon:', error);
-        throw error;
-    }
 }
         }
     }
