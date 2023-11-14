@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Append buttons and input to the page
     
     sidebar.appendChild(updateButton);
-    sidebar.appendChild(input);
     sidebar.appendChild(pasteInput);
     sidebar.appendChild(addButton);
     sidebar.appendChild(clearAllButton);
