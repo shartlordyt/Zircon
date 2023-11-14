@@ -141,12 +141,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const favicon = document.createElement("img");
       favicon.classList.add("favicon");
       favicon.alt = "Favicon"; // Add alt attribute for accessibility
-      try {
-        favicon.src = await fetchFavicon(app.link);
-      } catch (error) {
-        console.error("Error fetching favicon:", error);
-        favicon.src = "default-favicon-url.png"; // Set default if fetching fails
-      }
+try {
+    favicon.src = await fetchFavicon(app.link);
+} catch (error) {
+    console.error('Error fetching favicon:', error);
+}
+
+      if (!favicon.src || favicon.src === 'undefined') {
+    favicon.src = 'default-favicon-url.png';
+}
 
       const title = document.createElement("p");
       title.textContent = await fetchTitle(app.link);
