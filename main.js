@@ -105,10 +105,25 @@ document.addEventListener('DOMContentLoaded', function () {
         displayApps(jsonData);
     }
 
-    function displayApps(apps) {
+
+    async function displayApps(apps) {
         appContainer.innerHTML = ''; // Clear previous content
 
-        apps.forEach(app => {
+        // Helper function to fetch title from URL
+        async function fetchTitle(url) {
+            try {
+                const response = await fetch(url);
+                const html = await response.text();
+                const match = html.match(/<title.*?>(.*?)<\/title>/i);
+                return match ? match[1] : url; // Return title or URL if title is not found
+            } catch (error) {
+                console.error('Error fetching title:', error);
+                return url; // Return URL in case of an error
+            }
+        }
+
+        // Display apps with dynamically fetched titles
+        for (const app of apps) {
             const appLink = document.createElement('a');
             appLink.href = app.link;
             appLink.target = '_blank'; // Open link in a new tab
@@ -118,15 +133,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Display text content instead of favicon
             const title = document.createElement('p');
-            title.textContent = app.title || app.link; // Use link if title is not available
+            title.textContent = await fetchTitle(app.link);
 
             appDiv.appendChild(title);
 
             appLink.appendChild(appDiv);
             appContainer.appendChild(appLink);
-        });
-    }
-
+        }
     function clearAllData() {
         // Clear data from local storage
         localStorage.removeItem('appData');
