@@ -154,9 +154,10 @@ const addButton = createButton('Add Link', function () {
             appContainer.appendChild(appLink);
 
 
-}
+
         }
     }
+                          
     function clearAllData() {
         // Clear data from local storage
         localStorage.removeItem('appData');
