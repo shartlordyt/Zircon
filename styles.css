@@ -6,7 +6,7 @@ body {
 
 .sidebar {
     width: 200px;
-    background-color: #f0f0f0;
+    background-color: #001f3f;
     padding: 10px;
     position: fixed;
     height: 100%;
@@ -19,10 +19,15 @@ body {
     flex-wrap: wrap;
 }
 
+
 #app-container {
     flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #000, #001f3f); /* Black to dark blue gradient */
+}
 }
 
 .app {
