@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return button;
     }
 
+        const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.classList.add('input');
+    input.addEventListener('change', handleFile);
+
     // Load data from local storage
     const storedData = localStorage.getItem('appData');
     if (storedData) {
@@ -23,10 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Button for updating JSON data
-    const updateButton = createButton('Update', function () {
-        input.click();
+    const updateButton = document.createElement('button');
+    updateButton.textContent = 'Update';
+    updateButton.classList.add('button');
+    updateButton.addEventListener('click', function () {
+        input.click(); // Trigger file input click when the button is clicked
     });
-
+    
     // Input for pasting links
     const pasteInput = document.createElement('input');
     pasteInput.type = 'text';
@@ -56,11 +65,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const exportButton = createButton('Export JSON', exportToJson);
 
     // Append buttons and input to the page
+    
     sidebar.appendChild(updateButton);
+    sidebar.appendChild(input);
     sidebar.appendChild(pasteInput);
     sidebar.appendChild(addButton);
     sidebar.appendChild(clearAllButton);
     sidebar.appendChild(exportButton);
+
 
     function handleFile(event) {
         const file = event.target.files[0];
@@ -83,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
             reader.readAsText(file);
         }
     }
-
     function addApp(app) {
         const storedData = localStorage.getItem('appData');
         let jsonData = storedData ? JSON.parse(storedData) : [];
