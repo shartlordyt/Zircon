@@ -70,3 +70,9 @@ button {
     border-radius: 3px;  /* Less rounded corners */
 }
 
+
+.favicon {
+    width: 32px; 
+    height: 32px; 
+    margin-bottom: 5px;
+}
