@@ -125,8 +125,13 @@ const addButton = createButton('Add Link', function () {
 
             const appDiv = document.createElement('div');
             appDiv.classList.add('app');
+            
+    // Display favicon
+    const favicon = document.createElement('img');
+    favicon.classList.add('favicon');
+    favicon.src = await fetchFavicon(app.link).catch(() => 'default-favicon-url.png'); // Set default if fetching fails
 
-            // Display text content instead of favicon
+
             const title = document.createElement('p');
             title.textContent = await fetchTitle(app.link);
 
@@ -134,6 +139,22 @@ const addButton = createButton('Add Link', function () {
 
             appLink.appendChild(appDiv);
             appContainer.appendChild(appLink);
+
+
+    async function fetchFavicon(url) {
+    try {
+        const response = await fetch(`https://www.google.com/s2/favicons?sz=64&domain_url=${url}`);
+        if (response.ok) {
+            const blob = await response.blob();
+            return URL.createObjectURL(blob);
+        } else {
+            throw new Error('Failed to fetch favicon');
+        }
+    } catch (error) {
+        console.error('Error fetching favicon:', error);
+        throw error;
+    }
+}
         }
     }
     function clearAllData() {
