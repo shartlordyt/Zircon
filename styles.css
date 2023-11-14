@@ -21,14 +21,18 @@ body {
 
 #app-container {
     flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .app {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px;
-    min-width: 150px; /* Adjust as needed */
+    width: 150px; /* Fixed width */
+    height: 150px; /* Fixed height */
     text-align: center;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 p {
@@ -44,3 +48,4 @@ button {
     display: block;
     margin-bottom: 10px;
 }
+
