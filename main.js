@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(error => {
                     console.error('Error fetching favicon:', error);
                     // Provide a default favicon URL or handle the error as needed
-                    favicon.src = 'default-favicon-url';
+                    favicon.src = 'default-favicon-url.png';
                 });
 
             const title = document.createElement('p');
