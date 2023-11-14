@@ -28,6 +28,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    
+    // Button for adding links using a prompt
+const addButton = createButton('Add Link', function () {
+    const link = prompt('Enter the link:');
+    if (link !== null && link.trim() !== '') {
+        addApp({ link });
+    }
+});
+
     // Button for updating JSON data
     const updateButton = document.createElement('button');
     updateButton.textContent = 'Import JSON';
@@ -37,14 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    // Button for adding links using a prompt
-    addButton.textContent = 'Add Link';
-    addButton.addEventListener('click', function () {
-        const link = prompt('Enter the link:');
-        if (link !== null && link.trim() !== '') {
-            addApp({ link });
-        }
-    });
 
     // Button for clearing all data with double confirmation
     const clearAllButton = createButton('Clear All Data', function () {
