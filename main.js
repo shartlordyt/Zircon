@@ -14,6 +14,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     appContainer.appendChild(fileInputLabel);
 
+    // Load data from local storage
+    const storedData = localStorage.getItem('appData');
+    if (storedData) {
+        try {
+            const jsonData = JSON.parse(storedData);
+            displayApps(jsonData);
+        } catch (error) {
+            console.error('Error parsing stored JSON data:', error);
+        }
+    }
+
     function handleFile(event) {
         const file = event.target.files[0];
 
@@ -24,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 try {
                     const jsonData = JSON.parse(e.target.result);
                     displayApps(jsonData);
+
+                    // Save data to local storage
+                    localStorage.setItem('appData', JSON.stringify(jsonData));
                 } catch (error) {
                     console.error('Error parsing JSON:', error);
                 }
