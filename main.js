@@ -60,25 +60,38 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function displayApps(apps) {
-        appContainer.innerHTML = ''; // Clear previous content
+function displayApps(apps) {
+    appContainer.innerHTML = ''; // Clear previous content
 
-        apps.forEach(app => {
-            const appLink = document.createElement('a');
-            appLink.href = app.link;
-            appLink.target = '_blank'; // Open link in a new tab
-
-            const appDiv = document.createElement('div');
-            appDiv.classList.add('app');
-
-            // Display text content instead of favicon
-            const title = document.createElement('p');
-            title.textContent = app.title || app.link;
-
-            appDiv.appendChild(title);
-
-            appLink.appendChild(appDiv);
-            appContainer.appendChild(appLink);
-        });
+    // Helper function to fetch title from URL
+    async function fetchTitle(url) {
+        try {
+            const response = await fetch(url);
+            const html = await response.text();
+            const match = html.match(/<title.*?>(.*?)<\/title>/i);
+            return match ? match[1] : url; // Return title or URL if title is not found
+        } catch (error) {
+            console.error('Error fetching title:', error);
+            return url; // Return URL in case of an error
+        }
     }
-});
+
+    // Display apps with dynamically fetched titles
+    apps.forEach(async app => {
+        const appLink = document.createElement('a');
+        appLink.href = app.link;
+        appLink.target = '_blank'; // Open link in a new tab
+
+        const appDiv = document.createElement('div');
+        appDiv.classList.add('app');
+
+        // Display text content instead of favicon
+        const title = document.createElement('p');
+        title.textContent = await fetchTitle(app.link);
+
+        appDiv.appendChild(title);
+
+        appLink.appendChild(appDiv);
+        appContainer.appendChild(appLink);
+    });
+}
