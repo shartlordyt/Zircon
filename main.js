@@ -30,23 +30,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Button for updating JSON data
     const updateButton = document.createElement('button');
-    updateButton.textContent = 'Update';
+    updateButton.textContent = 'Import JSON';
     updateButton.classList.add('button');
     updateButton.addEventListener('click', function () {
         input.click(); // Trigger file input click when the button is clicked
     });
-    
-    // Input for pasting links
-    const pasteInput = document.createElement('input');
-    pasteInput.type = 'text';
-    pasteInput.placeholder = 'Paste a link here...';
 
-    // Button for adding links
-    const addButton = createButton('Add Link', function () {
-        const link = pasteInput.value.trim();
-        if (link !== '') {
+
+    // Button for adding links using a prompt
+    addButton.textContent = 'Add Link';
+    addButton.addEventListener('click', function () {
+        const link = prompt('Enter the link:');
+        if (link !== null && link.trim() !== '') {
             addApp({ link });
-            pasteInput.value = '';
         }
     });
 
@@ -65,12 +61,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const exportButton = createButton('Export JSON', exportToJson);
 
     // Append buttons and input to the page
-    
-    sidebar.appendChild(updateButton);
-    sidebar.appendChild(pasteInput);
     sidebar.appendChild(addButton);
-    sidebar.appendChild(clearAllButton);
+    sidebar.appendChild(updateButton);
     sidebar.appendChild(exportButton);
+    sidebar.appendChild(clearAllButton);
 
 
     function handleFile(event) {
