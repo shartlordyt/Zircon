@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    background-color: #2a3f61;
 }
 
 .sidebar {
@@ -27,6 +28,7 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(to bottom, #000, #001f3f); /* Black to dark blue gradient */
+    text-color: white;
 }
 
 
