@@ -33,6 +33,9 @@ body {
     height: 150px;
     text-align: center;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 p {
@@ -41,11 +44,5 @@ p {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-/* Style your buttons as needed */
-button {
-    display: block;
-    margin-bottom: 10px;
 }
 
