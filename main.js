@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     const appContainer = document.getElementById('app-container');
-    const updateButton = document.createElement('button');
-    const input = document.createElement('input');
 
     // Ask the user to upload a JSON file
+    const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
+
     input.addEventListener('change', handleFile);
 
     const fileInputLabel = document.createElement('label');
@@ -20,19 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             const jsonData = JSON.parse(storedData);
             displayApps(jsonData);
-
-            // Show the update button after the list is loaded
-            updateButton.textContent = 'Update';
-            appContainer.appendChild(updateButton);
         } catch (error) {
             console.error('Error parsing stored JSON data:', error);
         }
     }
-
-    // Button for updating JSON data
-    updateButton.addEventListener('click', function () {
-        input.click();
-    });
 
     function handleFile(event) {
         const file = event.target.files[0];
@@ -47,10 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Save data to local storage
                     localStorage.setItem('appData', JSON.stringify(jsonData));
-
-                    // Show the update button after the list is loaded
-                    updateButton.textContent = 'Update';
-                    appContainer.appendChild(updateButton);
                 } catch (error) {
                     console.error('Error parsing JSON:', error);
                 }
