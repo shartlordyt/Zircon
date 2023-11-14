@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
             appLink.appendChild(appDiv);
             appContainer.appendChild(appLink);
         }
+    }
     function clearAllData() {
         // Clear data from local storage
         localStorage.removeItem('appData');
