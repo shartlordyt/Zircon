@@ -11,13 +11,28 @@ document.addEventListener('DOMContentLoaded', function () {
         return button;
     }
 
-    // Function to handle file selection
-    function handleFileSelection() {
-        input.click();
+    // Load data from local storage
+    const storedData = localStorage.getItem('appData');
+    if (storedData) {
+        try {
+            const jsonData = JSON.parse(storedData);
+            displayApps(jsonData);
+        } catch (error) {
+            console.error('Error parsing stored JSON data:', error);
+        }
     }
 
-    // Create regular buttons
-    const updateButton = createButton('Update', handleFileSelection);
+    // Button for updating JSON data
+    const updateButton = createButton('Update', function () {
+        input.click();
+    });
+
+    // Input for pasting links
+    const pasteInput = document.createElement('input');
+    pasteInput.type = 'text';
+    pasteInput.placeholder = 'Paste a link here...';
+
+    // Button for adding links
     const addButton = createButton('Add Link', function () {
         const link = pasteInput.value.trim();
         if (link !== '') {
@@ -25,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
             pasteInput.value = '';
         }
     });
+
+    // Button for clearing all data with double confirmation
     const clearAllButton = createButton('Clear All Data', function () {
         const confirmation1 = confirm('Are you sure you want to clear all data?');
         if (confirmation1) {
@@ -34,21 +51,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+
+    // Button for exporting JSON
     const exportButton = createButton('Export JSON', exportToJson);
 
-    // Create file select button
-    const fileSelectButton = document.createElement('label');
-    fileSelectButton.textContent = 'Upload a JSON file: ';
-    fileSelectButton.classList.add('button'); // Apply the button class
-    fileSelectButton.appendChild(input);
-
-    // Append buttons to the sidebar
+    // Append buttons and input to the page
     sidebar.appendChild(updateButton);
+    sidebar.appendChild(pasteInput);
     sidebar.appendChild(addButton);
     sidebar.appendChild(clearAllButton);
     sidebar.appendChild(exportButton);
-    sidebar.appendChild(fileSelectButton);
-
 
     function handleFile(event) {
         const file = event.target.files[0];
@@ -82,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         displayApps(jsonData);
     }
+
 
     async function displayApps(apps) {
         appContainer.innerHTML = ''; // Clear previous content
@@ -118,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
             appContainer.appendChild(appLink);
         }
     }
-
     function clearAllData() {
         // Clear data from local storage
         localStorage.removeItem('appData');
@@ -144,6 +156,8 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('No data to export.');
         }
     }
+});
+
 });
 
 
