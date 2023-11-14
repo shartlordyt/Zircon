@@ -127,9 +127,18 @@ const addButton = createButton('Add Link', function () {
             appDiv.classList.add('app');
             
     // Display favicon
-    const favicon = document.createElement('img');
-    favicon.classList.add('favicon');
-    favicon.src = await fetchFavicon(app.link).catch(() => 'default-favicon-url.png'); // Set default if fetching fails
+async function fetchFavicon(url) {
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const html = await response.text();
+      const match = html.match(/<link.*?icon.*?href=["'](.*?)["']/i);
+      if (match && match[1]) {
+        const faviconUrl = new URL(match[1], url).href;
+        const faviconResponse = await fetch(faviconUrl);
+        if (faviconResponse.ok) {
+          const blob = await faviconResponse.blob();
+          return URL.createObjectURL(blob);
 
 
             const title = document.createElement('p');
